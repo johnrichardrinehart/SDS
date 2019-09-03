@@ -2,7 +2,6 @@ package openapi
 
 import (
 	"github.com/johnrichardrinehart/go2openapi"
-	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/components"
 	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/paths"
 )
 
@@ -18,5 +17,4 @@ var Spec go2openapi.Specification = go2openapi.Specification{
 	OpenAPIVersion: go2openapi.OPENAPIVERSION,
 	Info:           info,
 	Paths:          paths.Paths,
-	Components:     &components.Components,
 }
