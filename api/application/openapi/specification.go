@@ -10,7 +10,7 @@ var SDSAPIVERSION = "0.0.1"
 var info go2openapi.Info = go2openapi.Info{
 	Title:       "Streaming Data Service REST API",
 	Description: "This API will be used by applications wishing to obtain data or metadata from the MODE SDS.",
-	Version:     "0.0.1",
+	Version:     SDSAPIVERSION,
 }
 
 var Spec go2openapi.Specification = go2openapi.Specification{

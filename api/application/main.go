@@ -9,6 +9,9 @@ import (
 
 func main() {
 	yaml, _ := openapi.Spec.MarshalYAML()
+	if err := os.Remove("openapi.yaml"); err != nil {
+		log.Fatal(err)
+	}
 	f, err := os.OpenFile("openapi.yaml", os.O_WRONLY|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
