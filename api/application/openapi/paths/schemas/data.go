@@ -1,8 +1,8 @@
-package paths
+package schemas
 
 import "github.com/johnrichardrinehart/go2openapi"
 
-var dataResponseSchemaItems = go2openapi.Schema{
+var DataResponseSchemaItems = go2openapi.Schema{
 	Type: "array",
 	Items: &go2openapi.Schema{
 		Type:   "string",
@@ -10,7 +10,7 @@ var dataResponseSchemaItems = go2openapi.Schema{
 	},
 }
 
-var dataQuerySchema = go2openapi.Schema{
+var DataQuerySchema = go2openapi.Schema{
 	Type:       "object",
 	Properties: map[string]go2openapi.Schema{},
 	Example: map[string]interface{}{
@@ -19,9 +19,9 @@ var dataQuerySchema = go2openapi.Schema{
 	},
 }
 
-var dataResponseSchema = go2openapi.Schema{
+var DataResponseSchema = go2openapi.Schema{
 	Type:  "array",
-	Items: &dataResponseSchemaItems,
+	Items: &DataResponseSchemaItems,
 	Example: `[]MessagePackItems{
 		MessagePack{ bin(data) },
 		MessagePack{ bin(data) },

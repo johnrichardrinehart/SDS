@@ -2,6 +2,8 @@ package paths
 
 import (
 	"github.com/johnrichardrinehart/go2openapi"
+	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/paths/common"
+	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/paths/schemas"
 )
 
 func init() {
@@ -12,34 +14,31 @@ func init() {
 		Description: "Successful query",
 		Content: map[string]go2openapi.MediaType{
 			"application/messagepack": go2openapi.MediaType{
-				Schema: &dataResponseSchema,
+				Schema: &schemas.DataResponseSchema,
 			},
 		},
-	}
-
-	var response401 = go2openapi.Response{
-		Description: "Authorization rejected/required.",
 	}
 
 	var operation go2openapi.Operation = go2openapi.Operation{
 		Responses: go2openapi.Responses{
 			"200": &response200,
-			"401": &response401,
+			"401": &common.Response401,
 		},
 		Tags: []string{"data"},
 	}
 
 	var get = operation
-	get.Parameters.AddParameters(
-		paramLimitQuery,
+
+	// add homeId / smartModuleId / streamName
+	var params = go2openapi.Parameters{}
+	params.AddParameters(common.PathParams[0:3]...)
+	params.AddParameters(
+		common.ParamPacketIndexQuery,
+		common.ParamLimitQuery,
+		common.ParamStepQuery,
 	)
 
-	// Parameters
-	var params = go2openapi.Parameters{
-		paramAuthorizationHeader,
-	}
-	// add homeId / smartModuleId / streamName
-	params.AddParameters(pathParams[0:3]...)
+	params.AddParameters(common.ParamAuthorizationHeader)
 
 	//####   /homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/data   ####//
 	var streamNameIndexData go2openapi.PathItem = go2openapi.PathItem{
@@ -50,10 +49,6 @@ func init() {
 	}
 
 	var streamNameData = streamNameIndexData
-	streamNameData.Get.Parameters.AddParameters(
-		paramSkipQuery,
-		paramPacketIndexQuery,
-	)
 
 	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/data", streamNameData)
 }

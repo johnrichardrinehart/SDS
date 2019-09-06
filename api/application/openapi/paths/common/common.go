@@ -1,9 +1,9 @@
-package paths
+package common
 
 import "github.com/johnrichardrinehart/go2openapi"
 
 // Request headers
-var paramAuthorizationHeader go2openapi.Parameter = go2openapi.Parameter{
+var ParamAuthorizationHeader go2openapi.Parameter = go2openapi.Parameter{
 	Name:        "Authorization",
 	In:          "header",
 	Description: "API key allowing access to the stream (value must be in the form `ModeCloud <API KEY>`)",
@@ -11,7 +11,7 @@ var paramAuthorizationHeader go2openapi.Parameter = go2openapi.Parameter{
 	Example:     "ModeCloud: <API KEY>",
 }
 
-var paramUpradeHeader go2openapi.Parameter = go2openapi.Parameter{
+var ParamUpradeHeader go2openapi.Parameter = go2openapi.Parameter{
 	Name:        "Upgrade",
 	In:          "header",
 	Description: "Websocket upgrade header",
@@ -20,7 +20,7 @@ var paramUpradeHeader go2openapi.Parameter = go2openapi.Parameter{
 }
 
 // URL path parameters
-var paramHomeIDPath go2openapi.Parameter = go2openapi.Parameter{
+var ParamHomeIDPath go2openapi.Parameter = go2openapi.Parameter{
 	Name:        "homeId",
 	In:          "path",
 	Required:    go2openapi.Ptrue,
@@ -31,7 +31,7 @@ var paramHomeIDPath go2openapi.Parameter = go2openapi.Parameter{
 	Example: 12,
 }
 
-var paramSmartModuleIDPath go2openapi.Parameter = go2openapi.Parameter{
+var ParamSmartModuleIDPath go2openapi.Parameter = go2openapi.Parameter{
 	Name:        "smartModuleId",
 	In:          "path",
 	Description: "MODE smart module ID containing the stream(s) whose data is desired",
@@ -42,7 +42,7 @@ var paramSmartModuleIDPath go2openapi.Parameter = go2openapi.Parameter{
 	Example: "carData",
 }
 
-var paramStreamNamePath go2openapi.Parameter = go2openapi.Parameter{
+var ParamStreamNamePath go2openapi.Parameter = go2openapi.Parameter{
 	Name:        "streamName",
 	In:          "path",
 	Description: "Name of the stream (within a given smart module instance) containing the desired data",
@@ -53,25 +53,26 @@ var paramStreamNamePath go2openapi.Parameter = go2openapi.Parameter{
 	Example: "johnsCar",
 }
 
-var paramPacketIndexPath go2openapi.Parameter = go2openapi.Parameter{
-	Name:     "packetIndex",
-	In:       "path",
-	Required: go2openapi.Ptrue,
+var ParamPacketIndexPath go2openapi.Parameter = go2openapi.Parameter{
+	Name:        "packetIndex",
+	In:          "path",
+	Required:    go2openapi.Ptrue,
+	Description: "SDS index of the data packet that is being requested",
 	Schema: go2openapi.Schema{
 		Type: "integer",
 	},
 	Example: "1020",
 }
 
-var pathParams = []go2openapi.Parameter{
-	paramHomeIDPath,
-	paramSmartModuleIDPath,
-	paramStreamNamePath,
-	paramPacketIndexPath,
+var PathParams = []go2openapi.Parameter{
+	ParamHomeIDPath,
+	ParamSmartModuleIDPath,
+	ParamStreamNamePath,
+	ParamPacketIndexPath,
 }
 
 // URL query parameters
-var paramPacketIndexQuery = go2openapi.Parameter{
+var ParamPacketIndexQuery = go2openapi.Parameter{
 	Name:        "packetIndex",
 	Description: "Obtain (query parameter) `<limit>` packets starting with the packet whose index is the value of this query parameter",
 	In:          "query",
@@ -82,8 +83,8 @@ var paramPacketIndexQuery = go2openapi.Parameter{
 	Example: 900,
 }
 
-var paramSkipQuery = go2openapi.Parameter{
-	Name:        "skip",
+var ParamStepQuery = go2openapi.Parameter{
+	Name:        "step",
 	In:          "query",
 	Required:    go2openapi.Pfalse,
 	Description: "Return every nth packet, starting at query parameter `<packetIndex>`",
@@ -93,18 +94,29 @@ var paramSkipQuery = go2openapi.Parameter{
 	Example: 5,
 }
 
-var paramLimitQuery = go2openapi.Parameter{
+var ParamLimitQuery = go2openapi.Parameter{
 	Name:        "limit",
 	In:          "query",
 	Description: "Pagination limit (maximum: 20)",
 	Example:     10,
 }
 
+var ParamSkipQuery = go2openapi.Parameter{
+	Name:        "skip",
+	In:          "query",
+	Description: "Skip the first `n` results",
+	Example:     10,
+}
+
 // HTTP Response codes
-var response101 = go2openapi.Response{
+var Response101 = go2openapi.Response{
 	Description: "Upgrading to Websocket connection.",
 }
 
-var response401 = go2openapi.Response{
+var Response401 = go2openapi.Response{
 	Description: "Authorization rejected/required.",
+}
+
+var Response200 = go2openapi.Response{
+	Description: "Successful query",
 }

@@ -1,4 +1,4 @@
-package paths
+package schemas
 
 import "github.com/johnrichardrinehart/go2openapi"
 
@@ -10,23 +10,23 @@ type ExampleMetadata struct {
 	Driver      string `json:"driver"`
 }
 
-var responseExample = []ExampleMetadata{
+var ResponseExample = []ExampleMetadata{
 	ExampleMetadata{PacketIndex: 983,
 		Source:  "deviceID:1234",
-		Path:    "/homes/12/smart_modules/carData/streams/johnsCar",
+		Path:    "/homes/12/smartModules/carData/streams/modeCar",
 		Session: "sess-12:start",
 		Driver:  "Takeshi",
 	},
 	ExampleMetadata{
 		PacketIndex: 1020,
 		Source:      "deviceID:1234",
-		Path:        "/homes/12/smart_modules/carData/streams/johnsCar",
+		Path:        "/homes/12/smartModules/carData/streams/modeCar",
 		Session:     "sess-12:end",
 		Driver:      "Takeshi",
 	},
 }
 
-var responseSchemaItems = go2openapi.Schema{
+var ResponseSchemaItems = go2openapi.Schema{
 	Properties: map[string]go2openapi.Schema{
 		"_packetIndex": go2openapi.Schema{
 			Type: "integer",
@@ -40,31 +40,20 @@ var responseSchemaItems = go2openapi.Schema{
 	},
 }
 
-var putRequest = map[string]go2openapi.MediaType{
+var PutResponse = map[string]go2openapi.MediaType{
 	"application/json": go2openapi.MediaType{
-		Schema: &querySchema,
-		Example: map[string]interface{}{
-			"driver":  "John",
-			"weather": "sunny",
-		},
-	},
-}
-
-var putResponse = map[string]go2openapi.MediaType{
-	"application/json": go2openapi.MediaType{
-		Schema: &querySchema,
+		Schema: &QuerySchema,
 		Example: map[string]interface{}{
 			"_packetIndex": 1020,
 			"_source":      "deviceID:1234",
-			"_path":        "/homes/12/smart_modules/carData/streams/johnsCar",
-			"driver":       []string{"John", "Takeshi"},
-			"session":      "sess-12:end",
+			"_path":        "/homes/12/smartModules/carData/streams/modeCar",
+			"driver":       "John",
 			"weather":      "sunny",
 		},
 	},
 }
 
-var querySchema = go2openapi.Schema{
+var QuerySchema = go2openapi.Schema{
 	Type:       "object",
 	Properties: map[string]go2openapi.Schema{},
 	Example: map[string]interface{}{
@@ -73,9 +62,9 @@ var querySchema = go2openapi.Schema{
 	},
 }
 
-var responseSchema = go2openapi.Schema{
+var ResponseSchema = go2openapi.Schema{
 	Type:       "array",
-	Items:      &responseSchemaItems,
+	Items:      &ResponseSchemaItems,
 	Properties: map[string]go2openapi.Schema{},
-	Example:    responseExample,
+	Example:    ResponseExample,
 }

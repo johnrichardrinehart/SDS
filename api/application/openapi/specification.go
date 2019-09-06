@@ -5,7 +5,7 @@ import (
 	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/paths"
 )
 
-var SDSAPIVERSION = "0.0.1"
+var SDSAPIVERSION = "0.0.2"
 
 var info go2openapi.Info = go2openapi.Info{
 	Title:       "Streaming Data Service REST API",

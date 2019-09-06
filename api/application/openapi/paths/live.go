@@ -2,6 +2,7 @@ package paths
 
 import (
 	"github.com/johnrichardrinehart/go2openapi"
+	"github.com/moderepo/main/cloud/smart_modules/SDS/api/application/openapi/paths/common"
 )
 
 func init() {
@@ -9,8 +10,8 @@ func init() {
 	// GET
 	var streamNameLiveGet go2openapi.Operation = go2openapi.Operation{
 		Responses: go2openapi.Responses{
-			"101": &response101,
-			"401": &response401,
+			"101": &common.Response101,
+			"401": &common.Response401,
 		},
 		Tags: []string{"live"},
 	}
@@ -23,12 +24,13 @@ func init() {
 	}
 	// Parameters
 	var streamNameLiveParameters = go2openapi.Parameters{
-		paramHomeIDPath,
-		paramSmartModuleIDPath,
-		paramStreamNamePath,
+		common.ParamHomeIDPath,
+		common.ParamSmartModuleIDPath,
+		common.ParamStreamNamePath,
 		paramSinceQuery,
-		paramAuthorizationHeader,
-		paramUpradeHeader,
+		common.ParamStepQuery,
+		common.ParamAuthorizationHeader,
+		common.ParamUpradeHeader,
 	}
 
 	// PathItem
