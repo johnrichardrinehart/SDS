@@ -25,7 +25,7 @@ func init() {
 			"401": &common.Response401,
 		},
 		Parameters: go2openapi.Parameters{},
-		Tags:       []string{"metadata"},
+		Tags:       []string{"sessions"},
 	}
 
 	queryParameter := go2openapi.Parameter{
@@ -47,71 +47,71 @@ func init() {
 	// GET
 	var get = operation
 
-	//####   /homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/metadata   ####//
-	var streamNameMetadata go2openapi.PathItem = go2openapi.PathItem{
-		Summary:     "Query/Modify a given stream's metadata",
-		Description: "This endpoint allows application end user's to obtain and modify the metadata for a given stream.",
+	//####   /homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/sessions   ####//
+	var streamNameSessions go2openapi.PathItem = go2openapi.PathItem{
+		Summary:     "Query/Modify a given stream's sessions",
+		Description: "This endpoint allows application end user's to obtain and modify the sessions for a given stream.",
 		Get:         &get,
 	}
-	streamNameMetadata.Parameters = go2openapi.Parameters{}
-	streamNameMetadata.Parameters.AddParameters(
+	streamNameSessions.Parameters = go2openapi.Parameters{}
+	streamNameSessions.Parameters.AddParameters(
 		common.PathParams[0:3]...,
 	)
-	streamNameMetadata.Parameters.AddParameters(
+	streamNameSessions.Parameters.AddParameters(
 		queryParameters...,
 	)
-	streamNameMetadata.Parameters.AddParameters(
+	streamNameSessions.Parameters.AddParameters(
 		headerParameters,
 	)
 
-	//####   /homes/{homeId}/smartModules/{smartModuleId}/metadata   ####//
-	smartModuleIDMetadata := streamNameMetadata
-	smartModuleIDMetadata.Parameters = go2openapi.Parameters{}
-	smartModuleIDMetadata.Parameters.AddParameters(
+	//####   /homes/{homeId}/smartModules/{smartModuleId}/sessions   ####//
+	smartModuleIDSessions := streamNameSessions
+	smartModuleIDSessions.Parameters = go2openapi.Parameters{}
+	smartModuleIDSessions.Parameters.AddParameters(
 		common.PathParams[:2]...,
 	)
-	smartModuleIDMetadata.AddParameters(
+	smartModuleIDSessions.AddParameters(
 		queryParameters...,
 	)
 
-	smartModuleIDMetadata.AddParameters(
+	smartModuleIDSessions.AddParameters(
 		headerParameters,
 	)
 
-	//####   /homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/metadata/{packetIndex}   ####//
-	packetIndex := go2openapi.PathItem{}
-	packetIndex.Get = nil
+	//####   /homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/sessions/{sessionIndex}   ####//
+	sessionIndex := go2openapi.PathItem{}
+	sessionIndex.Get = nil
 
-	packetIndex.Parameters = go2openapi.Parameters{}
-	packetIndex.AddParameters(
+	sessionIndex.Parameters = go2openapi.Parameters{}
+	sessionIndex.AddParameters(
 		common.PathParams...,
 	)
 
-	packetIndex.AddParameters(
+	sessionIndex.AddParameters(
 		headerParameters,
 	)
 
 	// DELETE
-	packetIndex.Delete = &go2openapi.Operation{
-		Tags: []string{"metadata"},
+	sessionIndex.Delete = &go2openapi.Operation{
+		Tags: []string{"sessions"},
 	}
 
 	var delete200 = go2openapi.Response{
-		Description: "Packet `<packetIndex>` deleted.",
+		Description: "Packet `<sessionIndex>` deleted.",
 	}
 
-	packetIndex.Delete.Responses = go2openapi.Responses{
+	sessionIndex.Delete.Responses = go2openapi.Responses{
 		"200": &delete200,
 		"401": &common.Response401,
 	}
 
 	put200 := go2openapi.Response{
-		Description: "Metadata packet replaced.",
+		Description: "Sessions packet replaced.",
 		Content:     schemas.PutResponse,
 	}
 
-	packetIndex.Put = &go2openapi.Operation{
-		Tags: []string{"metadata"},
+	sessionIndex.Put = &go2openapi.Operation{
+		Tags: []string{"sessions"},
 		RequestBody: &go2openapi.RequestBody{
 			Content: map[string]go2openapi.MediaType{
 				"application/json": go2openapi.MediaType{
@@ -124,12 +124,12 @@ func init() {
 			},
 		},
 	}
-	packetIndex.Put.Responses = go2openapi.Responses{
+	sessionIndex.Put.Responses = go2openapi.Responses{
 		"200": &put200,
 		"401": &common.Response401,
 	}
 
-	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/metadata", smartModuleIDMetadata)
-	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/metadata", streamNameMetadata)
-	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/metadata/{packetIndex}", packetIndex)
+	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/sessions", smartModuleIDSessions)
+	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/sessions", streamNameSessions)
+	Paths.AddPath("/homes/{homeId}/smartModules/{smartModuleId}/streams/{streamName}/sessions/{sessionIndex}", sessionIndex)
 }
